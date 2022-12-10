@@ -103,11 +103,10 @@ class StoryList {
     this.stories = this. stories.filter(story.storyId !== storyId);
 
     //filter out for the user's list of stories and favorites
-    user.ownStories = user.ownStories.filter(story => story.storyId !== storyId);
-    user.favorites = user.ownStories.filter(story => story.storyId !== storyId);
+    user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+    user.favorites = user.ownStories.filter(s => s.storyId !== storyId);
   }
 }
-
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
@@ -222,5 +221,37 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+  //add a story to user's favs and update API
+  async addFavorite(story) {
+    this.favorites.push(story);
+    await this._addOrRemoveFavorite("add", story);
+  }
+
+  //do the same for removing story from favs and API
+  async removeFavorite(story) {
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
+    await this._addOrRemoveFavorite("remove", story);
+  }
+
+  //update api with favorite or note favorite
+  //- newState: add or remove
+  async _addOrRemoveFavorite(newState, story) {
+    //a condition followed by a question mark ( ? ), then an expression to execute 
+    //if the condition is truthy followed by a colon ( : ), 
+    //and finally the expression to execute if the condition is falsy.
+    const method = newState === "add"?"POST":"DELETE";
+    const token = this.loginToken;
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: method,
+      data: {token},
+    });
+  }
+
+  isFavorite(story) {
+     // /The some() method tests whether at least one element 
+    //in the array passes the test implemented by the provided function.
+    return this.favorites.some(s => (s.storyId === story.storyId));
   }
 }
