@@ -56,11 +56,35 @@
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
 
+  <!-- new story form -->
+  <form action="" class="hidden" id="submit-form">
+    <div>
+      <label for="create-author">author</label>
+      <input id="create-author" required placeholder="author's name">
+    </div>
+    <div>
+      <label for="create-title">title</label>
+      <input id="create-title" required placeholder="story title">
+    </div>
+    <div>
+      <label for="create-url">url</label>
+      <input id="create-url" required type="url" placeholder="story url">
+    </div>
+    <button type="submit">submit</button>
+    <hr>
+  </form>
+
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
+
+   <!-- List of stories favorited by the user -->
+   <ol id="favorited-stories" class="hidden stories-list"></ol>
+
+   <!-- List of stories by the user -->
+   <ol id="my-stories" class="hidden stories-list"></ol>
 
 </section>
 
@@ -71,12 +95,12 @@
   <form action="#" id="login-form" class="account-form hidden" method="post">
     <h4>Login</h4>
     <div class="login-input">
-      <label for="login-username">username</label>
-      <input id="login-username" autocomplete="current-username">
+      <label for="username">username</label>
+      <input id="username" autocomplete="current-username">
     </div>
     <div class="login-input">
-      <label for="login-password">password</label>
-      <input id="login-password" type="password" autocomplete="current-password">
+      <label for="password">password</label>
+      <input id="password" type="password" autocomplete="current-password">
     </div>
     <button type="submit">login</button>
     <hr>
@@ -103,6 +127,18 @@
     </div>
     <button type="submit">create account</button>
   </form>
+</section>
+
+<!-- User profile -->
+<section id="user-profile" class="hidden">
+  <div class="user-profile-box container">
+    <h4>User Profile Info</h4>
+    <section>
+      <div>Name: <span id="profile-name">Name:</span></div>
+      <div>Username: <span id="profile-username">Username:</span></div>
+      <div>Account Created: <span id="profile-account-date"></span></div>
+    </section>
+  </div>
 </section>
 
 <!-- Library JS & our JS -->
