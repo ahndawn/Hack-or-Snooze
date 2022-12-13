@@ -175,13 +175,13 @@ async function toggleStoryFavorite(evt) {
   const storyId = $closestLi.attr("id");
   const story = storyList.stories.find(s => s.storyId === storyId);
 
-  // see if the item is already favorited (checking by presence of star)
+  // use presence of star as indication if favorited or not
   if ($tgt.hasClass("fas")) {
-    // currently a favorite: remove from user's fav list and change star
+    // remove from user's fav list and change star if currently a fav:
     await currentUser.removeFavorite(story);
     $tgt.closest("i").toggleClass("fas far");
   } else {
-    // currently not a favorite: do the opposite
+    // if not a favorite, do the opposite:
     await currentUser.addFavorite(story);
     $tgt.closest("i").toggleClass("fas far");
   }
