@@ -61,6 +61,7 @@ function getStarHTML(story, user) {
         <i class="${starType} fa-star"></i>
       </span>`;
 }
+
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
@@ -171,17 +172,16 @@ async function toggleStoryFavorite(evt) {
 
   const $tgt = $(evt.target);
   const $closestLi = $tgt.closest("li");
-   // The attr() method sets or returns attributes and values of the selected elements.
   const storyId = $closestLi.attr("id");
   const story = storyList.stories.find(s => s.storyId === storyId);
 
-  // use presence of star as indication if favorited or not
+  // see if the item is already favorited (checking by presence of star)
   if ($tgt.hasClass("fas")) {
-    // remove from user's fav list and change star if currently a fav:
+    // currently a favorite: remove from user's fav list and change star
     await currentUser.removeFavorite(story);
     $tgt.closest("i").toggleClass("fas far");
   } else {
-    // if not a favorite, do the opposite:
+    // currently not a favorite: do the opposite
     await currentUser.addFavorite(story);
     $tgt.closest("i").toggleClass("fas far");
   }

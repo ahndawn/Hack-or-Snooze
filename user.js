@@ -14,8 +14,8 @@ async function login(evt) {
   evt.preventDefault();
 
   // grab the username and password
-  const username = $("#username").val();
-  const password = $("#password").val();
+  const username = $("#login-username").val();
+  const password = $("#login-password").val();
 
   // User.login retrieves user info from API and returns User instance
   // which we'll make the globally-available, logged-in user.
@@ -97,7 +97,7 @@ function saveUserCredentialsInLocalStorage() {
 }
 
 /******************************************************************************
- * General UI stuff about users
+ * General UI stuff about users & profiles
  */
 
 /** When a user signs up or registers, we want to set up the UI for them:
@@ -107,7 +107,7 @@ function saveUserCredentialsInLocalStorage() {
  * - generate the user profile part of the page
  */
 
- async function updateUIOnUserLogin() {
+async function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
   hidePageComponents();
@@ -128,3 +128,4 @@ function generateUserProfile() {
   $("#profile-name").text(currentUser.name);
   $("#profile-username").text(currentUser.username);
   $("#profile-account-date").text(currentUser.createdAt.slice(0, 10));
+}
