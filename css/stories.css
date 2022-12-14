@@ -27,13 +27,13 @@
 
 .star,
 .trash-can {
-  font-size: 1rem;
+  font-size: 0.75rem;
   margin: 0 2px;
+  cursor: pointer;
 }
 
 .trash-can:hover {
-  color: red;
-  cursor: pointer;
+  color: crimson;
 }
 
 .story-link {
